@@ -1,4 +1,12 @@
+<!-- 
+    Created on : 5 nov. 2014, 19:38:56
+    Author     : sebastien
+    La page index.php est le lobby du jeu
+*/
 
+
+/* page index*/
+-->
 
 <!DOCTYPE HTML>
 <html lang="fr-FR">

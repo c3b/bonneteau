@@ -1,11 +1,16 @@
 <?php
+
+/* 
+    Created on : 5 nov. 2014, 19:38:56
+    Author     : sebastien
+    La page jeu.php contient l'essenciel du code (controleur).
+*/
+
+
+/* page jeu*/
+
 session_start();
 include 'regles.php';
-
-
-$as = "A";
-$roi = "R";
-$dos = "X";
 
 $erreur = "";
 $partie = true;
@@ -22,8 +27,6 @@ if (!empty($_GET['rejouer'])) {
         header("Location: http://localhost/Bonneteau/");
     }
 }
-
-
 
 // test si l'on reçoit un nom depuis la page index
 if (!empty($_POST['nom'])) {
@@ -64,9 +67,6 @@ if (!empty($_SESSION['ale'])) {
     unset($_SESSION['pile']);
 }
 
-
-
-
 //test si le programme recoit une mise
 if (!empty($_POST['mise'])) {
     if($_POST['mise'] < 100){
@@ -86,13 +86,8 @@ if (!empty($_POST['mise'])) {
         $ale = 0; 
         $chance =2;
         $_SESSION['chance'] = $chance;
-        $_SESSION['etat'] = "Init";
-        
-    
-    }
-
+        }
 }
-
 
 //melange des cartes si on a fait une mise
 if ($_SESSION['tour'] == 0) {// melange des cartes donc provocation sd'un tirage de nombre == réponse
@@ -106,11 +101,7 @@ if ($_SESSION['tour'] == 0) {// melange des cartes donc provocation sd'un tirage
     $_SESSION['choix'] = $choix;
     $_SESSION['tour'] = $tour;
     $_SESSION['mise'] = $mise;
-
 }
-
-
-
 
 //test si le nom est dans la session
 if (!empty($_SESSION['nom'])) {
@@ -123,14 +114,10 @@ if (!empty($_SESSION['gain']) && !empty($_SESSION['chance'])) {
     $chance = $_SESSION['chance'];
 }
 
-
-
 //test de la présence du nombre de $tour et du $choix (suppression tu test origin)
 
     $tour = $_SESSION['tour'];
     $choix = $_SESSION['choix'];
-
-
 
 //test si le programme recoit une carte donc un choix$_SESSION['choix'] != $choix && $_SESSION['choix'] != 0
 if (!empty($_POST['carte'])) {
@@ -142,11 +129,7 @@ if (!empty($_POST['carte'])) {
     }
     $_SESSION['choix'] = $choix;
     $mise = $_SESSION['mise'];
-    $_SESSION['etat'] = "Jeu";
 }
-
-
-
 
 if ($_SESSION['tour'] == 3) {
     $tour=0;
@@ -165,21 +148,16 @@ if ($_SESSION['tour'] == 3) {
         $gain = $gain - $mise;
         $_SESSION['gain'] = $gain;
     }
-    
     if ($gain <= 0){
         $reponse = "Vous avez perdu";
         $partie = false;
     }
-    
     if ($gain >= 10000){
         $reponse = "Vous avez gagné";
         $partie = false;
     }
-   
         $_SESSION['ale'] = 0;
 }
-
-
 
 //Test de $ale pour connaitre sa valeur
 switch ($ale) {
@@ -214,9 +192,9 @@ switch ($ale) {
                 $carte2 = $tabImg[1];
                 $carte3 = $tabImg[1];
             }
-
         }
         break;
+        
     case 2: {
             if($choix == 1 && $tour == 2){
                 $carte1 = $tabImg[0];
@@ -252,7 +230,6 @@ switch ($ale) {
         break;
         
             case 3: {
-
             if($choix == 1 && $tour == 2){
                 $carte1 = $tabImg[0];
                 $carte2 = $tabImg[1];
@@ -282,16 +259,15 @@ switch ($ale) {
                 $carte1 = $tabImg[1];
                 $carte2 = $tabImg[1];
                 $carte3 = $tabImg[2];
-        }
+            }
         }
         break;
         
-    case 0:{
-        $carte1 = $tabImg[0];
-        $carte2 = $tabImg[0];
-        $carte3 = $tabImg[0];
-    }
-
+            case 0:{
+                $carte1 = $tabImg[0];
+                $carte2 = $tabImg[0];
+                $carte3 = $tabImg[0];
+            }
 }
 ?>
 
@@ -303,19 +279,9 @@ switch ($ale) {
         <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" />
     </head>
     <body>
-
-
         <div class="contener">
-
-               
-               
-
-
-
-            <div class="regles">
-
+             <div class="regles">
             </div>
-
             <div class="table">
                 <form action="jeu.php" method="POST">
                     <div class="tapis">
@@ -323,7 +289,6 @@ switch ($ale) {
                         <?php if ($partie): ?>
                         <div class="cartes">
                             <div class="carte <?php echo $carte1 ?>">
-                                
                             </div>
                             <div class="choix">
                                 <?php if ($tour != 0): ?>
@@ -331,7 +296,6 @@ switch ($ale) {
                                 <?php endif; ?>
                             </div>
                         </div>
-                        
                         <div class="cartes">
                             <div class="carte <?php echo $carte2 ?>">
                                 
@@ -342,24 +306,20 @@ switch ($ale) {
                                 <?php endif; ?>
                             </div>
                         </div>
-
                         <div class="cartes">
                             <div class="carte <?php echo $carte3 ?>">
-                                
                             </div>
                             <div class="choix">
                                 <?php if ($tour != 0): ?>
                                     <input type="radio" name="carte" value="3"/>
                                 <?php endif; ?>
                             </div>
-
                         </div>
                             <?php else: ?>
                         <div id="partie">
-                            <<h1> <?php echo $reponse ?></h1>
+                            <h1> <?php echo $reponse ?></h1>
                             <p><a href="jeu.php?rejouer=oui">Rejouer</a></p>
                             <p><a href="index.php?rejouer=non">Terminer</a></p>
-                            
                         </div>
                             <?php endif; ?>
 
@@ -377,13 +337,9 @@ switch ($ale) {
                         <div class="controle">
                             <?php
                             if ($tour == 1) {
-
-
                                 echo'<p><input type="submit" value="Valider mon choix" /></p>';
                                 echo'<p><input type="submit" value="donner la réponse" disabled/></p>';
-                            } elseif ($tour == 2) {
-
-
+                            }elseif ($tour == 2) {
                                 echo'<p><input type="submit" value="Valider mon choix" disabled/></p>';
                                 echo'<p><input type="submit" value="donner la réponse"/></p>';
                             }
@@ -391,21 +347,19 @@ switch ($ale) {
                         </div>
                 </form>
             </div>
-
         </div> <!-- fin de table -->
+        
         <div class="cadreDroit">
             <div class="points">
                 <ul>
                     <h2>Infos joueur</h2>
                     <li>Nom du joueur: <?php echo $nom ?></li>
-                    <li>Gain de départ: <?php echo $gain ?></li>
+                    <li>Banque: <?php echo $gain ?></li>
                     <li>Nombre de chances: <?php echo $chance ?></li>
                     <?php if($tour != 0): ?>
                     <li><b>Mise en cours: <?php echo $mise ?></b></li>
                     <?php endif; ?>
                 </ul>
-
-
             </div>
             <div class="regles">
                 <?php echo $regles; ?>

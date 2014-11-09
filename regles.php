@@ -4,7 +4,7 @@
 
             <ul>
             <h2>Règles du jeu </h2>
-                <li>Mélanger 3 cartes sur la page vu de dos, 2 As et une figure.
+                <li>Mélanger 3 cartes sur la page vue de dos, 2 As et une figure.
                 Il faudra retrouver la figure en 2 essais.</li>
                 <li>Le joueur aura une derniere chance de pouvoir changer son choix initial.</li>
                 <li>Mise minimum: 100</li>
