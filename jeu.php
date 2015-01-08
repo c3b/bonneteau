@@ -3,7 +3,7 @@
 /* 
     Created on : 5 nov. 2014, 19:38:56
     Author     : sebastien
-    La page jeu.php contient l'essenciel du code (controleur).
+    La page jeu.php contient l'essentiel du code (controleur).
 */
 
 
@@ -70,9 +70,20 @@ if (!empty($_SESSION['ale'])) {
 //test si le programme recoit une mise
 if (!empty($_POST['mise'])) {
     if($_POST['mise'] < 100){
+        if($_SESSION['gain'] > 100){
         $erreur = "La mise minimum autorisée est de: 100";
         $tour = 0;
         $_SESSION['tour'] = $tour;
+        }else{
+                    $mise = $_POST['mise'];
+        $tour = $_SESSION['tour'];
+        $_SESSION['mise'] = $mise;
+        $tour++;
+        $_SESSION['tour'] = $tour;
+        $ale = 0; 
+        $chance =2;
+        $_SESSION['chance'] = $chance;
+        }
     }elseif($_POST['mise'] > $_SESSION['gain']){
         $erreur = "Le montant maximum autorisé est de: ". $_SESSION['gain'];
         $tour = 0;
@@ -237,7 +248,7 @@ switch ($ale) {
             }elseif($choix == 2 && $tour == 2){
                 $carte1 = $tabImg[1];
                 $carte2 = $tabImg[0];
-                $carte3 = $tabImg[1]; 
+                $carte3 = $tabImg[0]; 
             }elseif ($choix == 3 && $tour == 2) {
                 $plage = 1000;
                 $tmp = mt_rand(0, $plage);
